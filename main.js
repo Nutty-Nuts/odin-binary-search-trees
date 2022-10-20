@@ -140,6 +140,18 @@ class BinarySearchTree {
 
         return current.data;
     }
+
+    find(data) {
+        let current = this.root;
+
+        while (current.data !== data) {
+            if (data < current.data) current = current.left;
+            else if (data > current.data) current = current.right;
+            else return null;
+        }
+
+        return current;
+    }
 }
 let array = [10, 5, 15, 3, 7, 13, 17];
 let tree = new BinarySearchTree();
@@ -150,3 +162,4 @@ tree.print();
 console.log(tree);
 console.log(tree.min());
 console.log(tree.max());
+console.log(tree.find(15));
