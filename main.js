@@ -7,36 +7,41 @@ class Node {
 }
 
 /*
- * buildTree, takes an array of data and creates a balanced BinarySearchTree
+ * [x] buildTree, takes an array of data and creates a balanced BinarySearchTree
+ *
  */
 
 /*
  * BinarySearchTree Data Methods
  *
- * insert, insert a node based on value
- * delete, delete a node based on value
- * find, find a node based on value
+ * [x] insert, insert a node based on value
+ * [ ] delete, delete a node based on value
+ * [ ] find, find a node based on value
+ *
  */
 
 /*
  * BinarySearchTree Search Traversal Methods
  *
- * levelOrder, travesrses via breadth-first levelOrder
- * inorder, preorder, postorder, traverses via respective depth-first order
+ * [ ] levelOrder, travesrses via breadth-first levelOrder
+ * [ ] inorder, preorder, postorder, traverses via respective depth-first order
+ *
  */
 
 /*
  * BinarySearchTree Length Methods
  *
- * height, returns the height of a node
- * depth, returns the depth of a node
+ * [ ] height, returns the height of a node
+ * [ ] depth, returns the depth of a node
+ *
  */
 
 /*
  * BinarySearchTree Balancing Methods
  *
- * isBalanced, checks if BinarySearchTree is isBalanced
- * reBalance, reBalance a unbalanced BinarySearchTree
+ * [ ] isBalanced, checks if BinarySearchTree is isBalanced
+ * [ ] reBalance, reBalance a unbalanced BinarySearchTree
+ *
  */
 
 class BinarySearchTree {
@@ -119,6 +124,22 @@ class BinarySearchTree {
         }
         return search(node);
     }
+
+    min() {
+        let current = this.root;
+
+        while (current.left !== null) current = current.left;
+
+        return current.data;
+    }
+
+    max() {
+        let current = this.root;
+
+        while (current.right !== null) current = current.right;
+
+        return current.data;
+    }
 }
 let array = [10, 5, 15, 3, 7, 13, 17];
 let tree = new BinarySearchTree();
@@ -127,3 +148,5 @@ tree.buildTree(array);
 tree.print();
 
 console.log(tree);
+console.log(tree.min());
+console.log(tree.max());
