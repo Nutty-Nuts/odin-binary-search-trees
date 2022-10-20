@@ -7,40 +7,40 @@ class Node {
 }
 
 /*
- * [x] buildTree, takes an array of data and creates a balanced BinarySearchTree
+ *  NOTE: buildTree, takes an array of data and creates a balanced BinarySearchTree
  *
  */
 
 /*
  * BinarySearchTree Data Methods
  *
- * [x] insert, insert a node based on value
- * [ ] delete, delete a node based on value
- * [ ] find, find a node based on value
+ *  NOTE: insert, insert a node based on value
+ *  NOTE: delete, delete a node based on value
+ *  NOTE: find, find a node based on value
  *
  */
 
 /*
  * BinarySearchTree Search Traversal Methods
  *
- * [ ] levelOrder, travesrses via breadth-first levelOrder
- * [ ] inorder, preorder, postorder, traverses via respective depth-first order
+ *  TODO: levelOrder, travesrses via breadth-first levelOrder
+ *  TODO: inorder, preorder, postorder, traverses via respective depth-first order
  *
  */
 
 /*
  * BinarySearchTree Length Methods
  *
- * [ ] height, returns the height of a node
- * [ ] depth, returns the depth of a node
+ *  TODO: height, returns the height of a node
+ *  TODO: depth, returns the depth of a node
  *
  */
 
 /*
  * BinarySearchTree Balancing Methods
  *
- * [ ] isBalanced, checks if BinarySearchTree is isBalanced
- * [ ] reBalance, reBalance a unbalanced BinarySearchTree
+ *  TODO: isBalanced, checks if BinarySearchTree is isBalanced
+ *  TODO: reBalance, reBalance a unbalanced BinarySearchTree
  *
  */
 
@@ -152,8 +152,34 @@ class BinarySearchTree {
 
         return current;
     }
+
+    remove(data) {
+        function removeNode(node, data) {
+            if (node == null) return null;
+
+            if (data == node.data) {
+                if (node.left == null && node.right == null) return null;
+                if (node.left == null) return node.right;
+                if (node.right == null) return node.left;
+
+                let temp = node.right;
+                while (temp.left !== null) temp = temp.left;
+
+                node.data = temp.data;
+                node.right = removeNode(node.right, temp.data);
+                return node;
+            } else if (data < node.data) {
+                node.left = removeNode(node.left, data);
+                return node;
+            } else {
+                node.right = removeNode(node.right, data);
+                return node;
+            }
+        }
+        this.root = removeNode(this.root, data);
+    }
 }
-let array = [10, 5, 15, 3, 7, 13, 17];
+let array = [10, 5, 15, 3, 7, 13, 17, 16];
 let tree = new BinarySearchTree();
 
 tree.buildTree(array);
@@ -163,3 +189,6 @@ console.log(tree);
 console.log(tree.min());
 console.log(tree.max());
 console.log(tree.find(15));
+
+tree.remove(15);
+tree.print();
