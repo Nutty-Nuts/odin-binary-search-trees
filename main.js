@@ -31,8 +31,8 @@ class Node {
 /*
  * BinarySearchTree Length Methods
  *
- *  TODO: height, returns the height of a node
- *  TODO: depth, returns the depth of a node
+ *  NOTE: height, returns the height of a node
+ *  NOTE: depth, returns the depth of a node
  *
  */
 
@@ -178,6 +178,44 @@ class BinarySearchTree {
         }
         this.root = removeNode(this.root, data);
     }
+
+    height(data) {
+        let current = this.root;
+        let heightL = 0;
+        let heightR = 0;
+
+        while (current.data !== data) {
+            if (data > current.data) current = current.right;
+            else if (data < current.data) current = current.left;
+            else return null;
+        }
+
+        function findHeight(node, height = 0) {
+            if (node == null) return height;
+
+            let lowestLeftNode = findHeight(node.left, height + 1);
+            let lowestRightNode = findHeight(node.right, height + 1);
+
+            return lowestLeftNode > lowestRightNode
+                ? lowestLeftNode
+                : lowestRightNode;
+        }
+
+        return findHeight(current);
+    }
+
+    depth(data) {
+        let current = this.root;
+        let depth = 1;
+
+        while (current.data !== data) {
+            depth++;
+            if (data > current.data) current = current.right;
+            else if (data < current.data) current = current.left;
+            else return null;
+        }
+        return depth;
+    }
 }
 let array = [10, 5, 15, 3, 7, 13, 17, 16];
 let tree = new BinarySearchTree();
@@ -192,3 +230,16 @@ console.log(tree.find(15));
 
 tree.remove(15);
 tree.print();
+
+tree.print();
+
+tree.insert(6);
+tree.insert(8);
+tree.insert(9);
+tree.insert(10);
+tree.insert(10);
+
+tree.print();
+
+console.log(tree.depth(3));
+console.log(tree.height(10));
