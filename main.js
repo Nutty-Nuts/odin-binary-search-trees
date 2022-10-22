@@ -23,7 +23,7 @@ class Node {
 /*
  * BinarySearchTree Search Traversal Methods
  *
- *  TODO: levelOrder, travesrses via breadth-first levelOrder
+ *  NOTE: levelOrder, travesrses via breadth-first levelOrder
  *  TODO: inorder, preorder, postorder, traverses via respective depth-first order
  *
  */
@@ -181,8 +181,6 @@ class BinarySearchTree {
 
     height(data) {
         let current = this.root;
-        let heightL = 0;
-        let heightR = 0;
 
         while (current.data !== data) {
             if (data > current.data) current = current.right;
@@ -216,7 +214,31 @@ class BinarySearchTree {
         }
         return depth;
     }
+
+    levelOrder() {
+        let root = this.root;
+        let current = this.root;
+
+        let queue = [];
+        let data = [];
+        queue.push(root);
+
+        while (queue.length !== 0) {
+            data.push(current.data);
+            if (current.left !== null) queue.push(current.left.data);
+            if (current.right !== null) queue.push(current.right.data);
+            queue.shift();
+
+            current = this.root;
+            while (current.data !== queue[0] && queue.length !== 0) {
+                if (queue[0] < current.data) current = current.left;
+                else if (queue[0] > current.data) current = current.right;
+            }
+        }
+        return data;
+    }
 }
+
 let array = [10, 5, 15, 3, 7, 13, 17, 16];
 let tree = new BinarySearchTree();
 
@@ -243,3 +265,5 @@ tree.print();
 
 console.log(tree.depth(3));
 console.log(tree.height(10));
+
+console.log(tree.levelOrder());
