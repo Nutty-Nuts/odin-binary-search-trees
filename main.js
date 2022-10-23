@@ -24,7 +24,7 @@ class Node {
  * BinarySearchTree Search Traversal Methods
  *
  *  NOTE: levelOrder, travesrses via breadth-first levelOrder
- *  TODO: inorder, preorder, postorder, traverses via respective depth-first order
+ *  NOTE: inorder, preorder, postorder, traverses via respective depth-first order
  *
  */
 
@@ -237,6 +237,64 @@ class BinarySearchTree {
         }
         return data;
     }
+
+    inorder() {
+        // inorder traversal method
+        let array = [];
+        let root = this.root;
+
+        function traverse(node) {
+            if (node === null) return;
+
+            traverse(node.left);
+            array.push(node.data);
+            traverse(node.right);
+        }
+
+        traverse(root);
+
+        return array;
+    }
+
+    preorder() {
+        // preorder traversal method
+
+        let array = [];
+        let root = this.root;
+
+        function traverse(node) {
+            if (node === null) return;
+
+            array.push(node.data);
+
+            traverse(node.left);
+            traverse(node.right);
+        }
+
+        traverse(root);
+
+        return array;
+    }
+
+    postorder() {
+        // postorder traversal method
+
+        let array = [];
+        let root = this.root;
+
+        function traverse(node) {
+            if (node === null) return;
+
+            traverse(node.left);
+            traverse(node.right);
+
+            array.push(node.data);
+        }
+
+        traverse(root);
+
+        return array;
+    }
 }
 
 let array = [10, 5, 15, 3, 7, 13, 17, 16];
@@ -267,3 +325,6 @@ console.log(tree.depth(3));
 console.log(tree.height(10));
 
 console.log(tree.levelOrder());
+console.log(tree.preorder());
+console.log(tree.postorder());
+console.log(tree.inorder());
