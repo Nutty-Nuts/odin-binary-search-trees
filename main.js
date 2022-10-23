@@ -295,6 +295,39 @@ class BinarySearchTree {
 
         return array;
     }
+
+    isBalanced() {
+        // checks if BinarySearchTree is balanced
+        let root = this.root;
+        let leftSubTree = root.left;
+        let rightSubTree = root.right;
+
+        function findHeight(node, height = 0) {
+            if (node == null) return height;
+
+            let lowestLeftNode = findHeight(node.left, height + 1);
+            let lowestRightNode = findHeight(node.right, height + 1);
+
+            return lowestLeftNode > lowestRightNode
+                ? lowestLeftNode
+                : lowestRightNode;
+        }
+
+        let leftSubTreeHeight = findHeight(leftSubTree) - 1;
+        let rightSubTreeHeight = findHeight(rightSubTree) - 1;
+
+        console.log(leftSubTreeHeight, rightSubTreeHeight);
+
+        if (Math.abs(leftSubTreeHeight - rightSubTreeHeight) <= 1) {
+            return "balanced";
+        } else {
+            return "unbalanced";
+        }
+    }
+
+    reBalance() {
+        // rebalances a BinarySearchTree
+    }
 }
 
 let array = [10, 5, 15, 3, 7, 13, 17, 16];
@@ -328,3 +361,8 @@ console.log(tree.levelOrder());
 console.log(tree.preorder());
 console.log(tree.postorder());
 console.log(tree.inorder());
+
+tree.remove(9);
+tree.print();
+
+console.log(tree.isBalanced());
