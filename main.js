@@ -39,7 +39,7 @@ class Node {
 /*
  * BinarySearchTree Balancing Methods
  *
- *  TODO: isBalanced, checks if BinarySearchTree is isBalanced
+ *  NOTE: isBalanced, checks if BinarySearchTree is isBalanced
  *  TODO: reBalance, reBalance a unbalanced BinarySearchTree
  *
  */
@@ -299,8 +299,35 @@ class BinarySearchTree {
     isBalanced() {
         // checks if BinarySearchTree is balanced
         let root = this.root;
-        let leftSubTree = root.left;
-        let rightSubTree = root.right;
+        let balanced = "";
+
+        function checkSubtrees(node, queue = [node]) {
+            if (node === null) {
+                balanced = "balanced";
+                return;
+            }
+            if (queue.length === 0) {
+                balanced = "balanced";
+                return;
+            }
+
+            let leftSubtree = findHeight(queue[0].left);
+            let rightSubtree = findHeight(queue[0].right);
+
+            let balanceValue = Math.abs(leftSubtree - rightSubtree);
+
+            if (balanceValue <= 1) {
+                // continue
+                queue.push(queue[0].left);
+                queue.push(queue[0].right);
+                queue.shift();
+
+                checkSubtrees(queue[0], queue);
+            } else {
+                // end
+                balanced = "unbalanced";
+            }
+        }
 
         function findHeight(node, height = 0) {
             if (node == null) return height;
@@ -313,16 +340,9 @@ class BinarySearchTree {
                 : lowestRightNode;
         }
 
-        let leftSubTreeHeight = findHeight(leftSubTree) - 1;
-        let rightSubTreeHeight = findHeight(rightSubTree) - 1;
+        checkSubtrees(root);
 
-        console.log(leftSubTreeHeight, rightSubTreeHeight);
-
-        if (Math.abs(leftSubTreeHeight - rightSubTreeHeight) <= 1) {
-            return "balanced";
-        } else {
-            return "unbalanced";
-        }
+        return balanced;
     }
 
     reBalance() {
@@ -362,7 +382,8 @@ console.log(tree.preorder());
 console.log(tree.postorder());
 console.log(tree.inorder());
 
-tree.remove(9);
+tree.insert(19);
+tree.insert(4);
 tree.print();
 
 console.log(tree.isBalanced());
