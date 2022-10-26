@@ -432,3 +432,19 @@ console.log(tree.isBalanced());
 tree.reBalance();
 tree.print();
 console.log(tree.isBalanced());
+
+tree.buildTree([1, 2, 3, 54, 67, 98, 75]);
+tree.print();
+console.log(tree.isBalanced());
+
+tree.reBalance();
+tree.print();
+console.log(tree.isBalanced());
+
+tree.buildTree([123, 1345, 145, 56, 69, 234, 99, 34]);
+tree.print();
+console.log(tree.isBalanced());
+
+tree.reBalance();
+tree.print();
+console.log(tree.isBalanced());
