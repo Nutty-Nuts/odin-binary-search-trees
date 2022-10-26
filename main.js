@@ -346,7 +346,36 @@ class BinarySearchTree {
     }
 
     reBalance() {
-        // rebalances a BinarySearchTree
+        if (this.isBalanced() === "balanced") {
+            console.log(this.isBalanced());
+            return this.root;
+        }
+
+        let reBalanceArray = [];
+        reBalanceArray = this.inorder();
+
+        let balancedTree = new BinarySearchTree();
+        let balanceArray = [];
+
+        function balanceTree(array) {
+            if (array.length === 1) balanceArray.push(array.pop());
+            if (array.length === 0) return;
+            let median = Math.floor(array.length / 2);
+
+            balanceArray.push(array[median]);
+            array.splice(median, 1);
+
+            let left = array.slice(0, median);
+            let right = array.slice(median, array.length);
+
+            balanceTree(left);
+            balanceTree(right);
+        }
+
+        balanceTree(reBalanceArray);
+
+        balancedTree.buildTree(balanceArray);
+        this.root = balancedTree.root;
     }
 }
 
@@ -384,6 +413,22 @@ console.log(tree.inorder());
 
 tree.insert(19);
 tree.insert(4);
+tree.remove(6);
+tree.remove(8);
+tree.remove(9);
+tree.remove(4);
+tree.insert(20);
 tree.print();
 
+console.log(tree.isBalanced());
+tree.reBalance();
+tree.print();
+console.log(tree.isBalanced());
+
+tree.buildTree([25, 26, 32, 40]);
+tree.print();
+console.log(tree.isBalanced());
+
+tree.reBalance();
+tree.print();
 console.log(tree.isBalanced());
